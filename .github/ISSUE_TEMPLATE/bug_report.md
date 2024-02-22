@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a typo or other error
+about: Report a typo, factual error, or website bug
 title: ''
 labels: bug
 assignees: ''
