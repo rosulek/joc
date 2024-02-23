@@ -10,6 +10,7 @@ assignees: ''
 **Location of bug:**
 * if in the print edition, give page number
 * if in the web edition, give link to chapter and describe location (section #, subsection #, lemma #, etc)
+* if in a PDF, please don't bother reporting because this old edition is no longer maintained.
 
 **Description of bug:**
 
