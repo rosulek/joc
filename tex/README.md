@@ -4,7 +4,7 @@
 Doing cryptography in this style means writing lots of source code.
 I have written some tools and macros to make this process easier.
 
-My current process is summarized in [sample.pdf](tex/sample.pdf).
+My current process is summarized in [sample.pdf](sample.pdf).
 You can clone all of the files in this directory to replicate this sample.
 
 I also have a tool for generating automated visualizations of hybrid proofs (in LaTeX and in HTML).
