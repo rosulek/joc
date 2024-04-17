@@ -8,4 +8,4 @@ You can file a bug report or make a feature request (for the print or online edi
 
 ## LaTeX formatting
 
-If you are a teacher or student who would like to typeset cryptography in LaTeX using the formatting conventions of *The Joy of Cryptography*, you can find some resources [here](https://github.com/rosulek/joc/tex).
+If you are a teacher or student who would like to typeset cryptography in LaTeX using the formatting conventions of *The Joy of Cryptography*, you can find some resources [here](tex).
