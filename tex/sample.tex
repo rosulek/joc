@@ -1,0 +1,423 @@
+\documentclass[letterpaper]{article}
+\usepackage{geometry}
+
+%% font stuff
+
+\usepackage{hyperref}
+\usepackage{xspace}
+
+\urlstyle{sf}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\usepackage[libertine]{newtxmath}
+\usepackage[scaled=0.8]{beramono}
+
+\usepackage{microtype}
+\usepackage{cmap}
+
+\usepackage{amsmath}
+
+%% colors, styles
+
+\usepackage{xcolor}
+
+\newlength{\myline}
+\setlength{\myline}{0.7pt} % pgf "thick"
+
+\colorlet{bg}{white}
+\colorlet{fg}{black}
+\colorlet{shaded}{black!10}
+\colorlet{shadeborder}{black!30}
+\definecolor{hlbg}{HTML}{F5F5A4} 
+\colorlet{hlfg}{black}
+\colorlet{commentcolor}{black!60!white}
+\definecolor{errorcolor}{HTML}{a91616}
+\definecolor{linkcolor}{HTML}{4b804c}
+\definecolor{bitcolor}{HTML}{a91616}
+
+\pagecolor{bg}
+\color{fg}
+
+%% highlighting
+
+\usepackage[auto,outline]{contour}
+
+\contourlength{1.2\myline}
+\newcommand{\hl}[1]{%
+    \relax\ifmmode%
+        {}%
+        \contour{hlbg}{\textcolor{hlfg}{${} #1 {}$}}%
+        {}%
+    \else%
+        \contour{hlbg}{\textcolor{hlfg}{#1}}%
+    \fi%
+}
+
+%% codebox stuff 
+
+\usepackage{varwidth}
+
+\usepackage{pipetex}
+\pipetexcommand{./codebox2tex.pl}
+
+\definecolor{boxbordercolor}{HTML}{000000}
+\definecolor{boxbgcolor}{HTML}{FFFFFF}
+
+\newcommand{\codebox}[1]{%
+    \begin{varwidth}{\linewidth}%
+        \upshape%   no slant in definition/theorem statement!
+        \begin{tabbing}%
+            ~~~\=\quad\=\quad\=\quad\=\kill
+            #1
+        \end{tabbing}%
+    \end{varwidth}%
+}
+
+\newcommand{\fcodebox}[1]{%
+    \fboxsep=3pt%
+    \fcolorbox{boxbordercolor}{boxbgcolor}{\codebox{#1}}%
+}
+
+\newcommand{\titlecodebox}[2]{%
+    \fboxsep=0pt%
+    \fcolorbox{boxbordercolor}{boxbordercolor!10!boxbgcolor}{%
+        \begin{varwidth}{\linewidth}%
+            \centering%
+            \fboxsep=3pt%
+            \colorbox{boxbordercolor!10!boxbgcolor}{#1} \\
+            \colorbox{boxbgcolor}{\codebox{#2}}%
+        \end{varwidth}%
+    }%
+}
+
+\newcommand{\hltitlecodebox}[2]{%
+    \fboxsep=3pt%
+    \colorbox{hlbg}{%
+        \titlecodebox{#1}{#2}%
+    }%
+}
+
+\newcommand{\hlcodebox}[1]{%
+    \fboxsep=3pt%
+    \colorbox{hlbg}{%
+        \fcodebox{#1}%
+    }%
+}
+
+\newcommand{\procheader}[1]{\underline{#1}}
+\newcommand{\mycomment}[1]{\textcolor{commentcolor}{\small\textsl{// #1}}}
+
+%% library stuff and math stuff
+
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\lib}[1]{\mathcal{L}_{\textsf{\textup{#1}}}}
+\newcommand{\outputs}{\Rightarrow}
+\newcommand{\link}{\diamond}
+
+\newcommand{\indist}{\approxeq}
+\renewcommand{\gets}{\twoheadleftarrow}
+
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+
+\newcommand{\pct}{\mathbin{\%}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+
+\newcommand{\secpar}{\lambda}
+
+%% bits
+
+\newcommand{\bit}[1]{\ensuremath{\textcolor{bitcolor}{\texttt{\upshape #1}}}\xspace}
+\newcommand{\bits}{\{\bit0,\bit1\}}
+
+%% algorithms
+
+\newcommand{\algorithm}[1]{\ensuremath{\textsf{\upshape#1}}\xspace}
+
+\newcommand{\KeyGen}{\algorithm{KeyGen}}
+\newcommand{\Enc}{\algorithm{Enc}}
+\newcommand{\Encaps}{\algorithm{Encaps}}
+\newcommand{\Sign}{\algorithm{Sign}}
+\newcommand{\Dec}{\algorithm{Dec}}
+\newcommand{\Decaps}{\algorithm{Decaps}}
+\newcommand{\MAC}{\algorithm{MAC}}
+\newcommand{\Verify}{\algorithm{Verify}}
+\newcommand{\Share}{\algorithm{Share}}
+\newcommand{\Reconstruct}{\algorithm{Reconstruct}}
+\newcommand{\Filter}{\algorithm{Filter}}
+\newcommand{\Birthday}{\algorithm{Birthday}}
+\newcommand{\Start}{\algorithm{Start}}
+\newcommand{\Respond}{\algorithm{Respond}}
+\newcommand{\Finalize}{\algorithm{Finalize}}
+\newcommand{\RSA}{\algorithm{RSA}}
+\newcommand{\Commit}{\algorithm{Commit}}
+\renewcommand{\Check}{\algorithm{Check}}
+\newcommand{\Extract}{\algorithm{Extract}}
+\newcommand{\SimTrans}{\algorithm{SimTranscript}}
+
+\newcommand{\subname}[1]{\textsc{#1}}
+
+
+\begin{document}
+
+\title{
+    The Joy of Typesetting Cryptography
+    \\[2pt]
+    \Large How to make it look like \emph{The Joy of Cryptography}
+}
+\author{Mike Rosulek, \url{https://joyofcryptography.com}}
+\maketitle
+
+This is a self-contained example of the formatting used in \emph{The Joy of Cryptography}.
+Please consult the source code of this document.
+
+\section*{A few convenient macros}
+
+\begin{center}
+\begin{tabular}{ll}
+    \texttt{\textbackslash bit\{0\}} & $\bit{0}$ \\
+    \texttt{\textbackslash bits} & $\bits$ \\
+    \texttt{\textbackslash indist} & $\indist$ \\
+    \texttt{\textbackslash gets} & $\gets$ \\
+    \texttt{\textbackslash lib\{test\}} & $\lib{test}$ \\
+    \texttt{\textbackslash hl\{highlighted\} text} & \hl{highlighted} text \\
+    \texttt{math mode: \$X \textbackslash hl\{\textbackslash gets \textbackslash bits\textasciicircum\textbackslash secpar\}\$} & math mode: $X \hl{\gets \bits^\secpar}$ \\
+\end{tabular}
+\end{center}
+
+\section*{``codebox'' syntax:}
+
+The \verb+\begin{pipetex}+ environment passes its body to the \texttt{codebox2tex.pl} script, and renders the output as TeX.
+    See \url{https://github.com/rosulek/pipetex.sty/}.
+
+\begin{center}
+    \fcolorbox{bitcolor}{bitcolor!10!white}{You need to compile with the \texttt{-shell-escape} option to call external scripts!}%
+\end{center}
+
+\noindent
+Here is a brief overview of the \texttt{codebox2tex.pl} domain-specific language:
+
+\begin{itemize}
+    \item Inside \texttt{code} ... \texttt{end} you can write multiple lines vertically. 
+        Outside of \texttt{code}, linebreaks don't matter.
+        \begin{center}
+            \begin{minipage}{0.3\linewidth}
+            \begin{verbatim}
+code
+    K \gets \bits^\secpar
+    Y := F(K,X)
+    Z := F(K,Y)
+end
+A := 1
+B := 2
+            \end{verbatim}
+            \end{minipage}
+            \hspace*{0.5in}
+        \begin{pipetex}
+            code
+                K \gets \bits^\secpar
+                Y := F(K,X)
+                Z := F(K,Y)
+            end
+            A := 1
+            B := 2
+        \end{pipetex}
+        \end{center}
+
+    \item \texttt{lib} ... \texttt{end} is similar, but draws a box.
+        \texttt{lib} takes an optional argument.
+        You can have more than one \texttt{lib}/\texttt{code} box (often separated by \texttt{\textbackslash link}, \texttt{\textbackslash indist}, etc):
+        \begin{center}
+            \begin{minipage}{0.3\linewidth}
+            \begin{verbatim}
+lib
+    K \gets \bits^\secpar
+    Y := F(K,X)
+    Z := F(K,Y)
+end
+\link
+lib \lib{test}
+    R \gets \bits^\secpar
+    U := R \oplus Z
+end
+\indist
+\cdots
+            \end{verbatim}
+            \end{minipage}
+            \hspace*{0.5in}
+        \begin{pipetex}
+            lib
+                K \gets \bits^\secpar
+                Y := F(K,X)
+                Z := F(K,Y)
+            end
+            \link
+            lib \lib{test}
+                R \gets \bits^\secpar
+                U := R \oplus Z
+            end
+            \indist
+            \cdots
+        \end{pipetex}
+        \end{center}
+
+
+    \item 
+        Lines that contain no \$ are assumed to be entirely math (exception: lines like ``\texttt{else:}'').
+        Lines that start with \texttt{//} are rendered as comments.
+        \begin{center}
+            \begin{minipage}{0.4\linewidth}
+            \begin{verbatim}
+lib
+    // math:
+    K \gets \bits^\secpar
+
+    // mixture of math and non-math:
+    add $K$ to the set $\mathcal{K}$
+end
+            \end{verbatim}
+            \end{minipage}
+            \hspace*{0.5in}
+        \begin{pipetex}
+            lib
+                // math:
+                K \gets \bits^\secpar
+
+                // mixture of math and non-math:
+                add $K$ to the set $\mathcal{K}$
+            end
+        \end{pipetex}
+        \end{center}
+
+    \item 
+        Four spaces for indentation:
+        \begin{center}
+            \begin{minipage}{0.3\linewidth}
+            \begin{verbatim}
+lib
+    K \gets \bits^\secpar
+
+    if $K == \bit0^\secpar$:
+        for $i=1$ to $n$:
+            print $\bit{oops}$
+end
+            \end{verbatim}
+            \end{minipage}
+            \hspace*{0.5in}
+        \begin{pipetex}
+            lib
+                K \gets \bits^\secpar
+
+                if $K == \bit0^\secpar$:
+                    for $i=1$ to $n$:
+                        print $\bit{oops}$
+            end
+        \end{pipetex}
+        \end{center}
+
+
+
+    \item 
+        Start a subroutine with \texttt{proc}.
+        If the subroutine name contains only \texttt{[a-zA-Z\textbackslash .]} then it is rendered nicely (with \texttt{\textbackslash subname}), otherwise assumed to be math:
+        \begin{center}
+            \begin{minipage}{0.3\linewidth}
+            \begin{verbatim}
+lib
+    proc otp.enc(M)
+        K \gets \bits^n
+        return $K \oplus M$
+
+    proc \mathbb{H}^+(A)
+        if $H[A]$ undefined:
+            H[A] \gets \bits^n
+        return $H[A]$
+end
+            \end{verbatim}
+            \end{minipage}
+            \hspace*{0.5in}
+        \begin{pipetex}
+            lib
+                proc otp.enc(X)
+                    K \gets \bits^n
+                    return $K \oplus X$
+
+                proc \mathbb{H}^+(A)
+                    if $H[A]$ undefined:
+                        H[A] \gets \bits^n
+                    return $H[A]$
+            end
+        \end{pipetex}
+        \end{center}
+\end{itemize}
+
+
+
+
+\section*{Sample (from homework)}
+
+    Prove that the following encryption scheme has CPA security (real vs random) if $F$ is a secure PRF (PRP):
+    \begin{center}
+        \begin{pipetex}
+            code
+                \begin{aligned} \mathcal K &= \bits^\secpar \\ \mathcal M &= \bits^\secpar \\ \mathcal C &= \bits^{2\secpar} \end{aligned}
+            end
+            \qquad
+            code
+                proc \Enc(K,M)
+                    R \gets \bits^\secpar
+                    X := F(K,R)
+                    Y := F(K,M)
+                    Z := F(K,R \oplus Y)
+                    return $X \| Z$
+            end
+        \end{pipetex}
+    \end{center}
+    In other words, prove that:
+    \begin{center}
+        \begin{pipetex}
+            $\quad \text{if} \quad$
+
+            lib
+                K \gets \bits^\secpar
+
+                proc prf.query(X)
+                    return $F(K,X)$
+            end
+            \indist
+            lib
+                proc prf.query(X)
+                    if $L[X]$ undefined:
+                        L[X] \gets \bits^\secpar
+                    return $L[X]$
+            end
+
+            $\quad \text{then} \quad$
+
+            lib
+                K \gets \bits^\secpar
+
+                proc cpa.enc(M)
+                    // $\Enc(K,M)$:
+                    R \gets \bits^\secpar
+                    X := F(K,R)
+                    Y := F(K,M)
+                    Z := F(K,R \oplus Y)
+                    return $X \| Z$
+            end
+            \indist
+            lib
+                proc cpa.enc(M)
+                    X \gets \bits^\secpar
+                    Z \gets \bits^\secpar
+                    return $X \| Z$
+            end
+        \end{pipetex}
+    \end{center}
+
+\end{document}
