@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+Before posting here, please check the list of [known/fixed errata](https://joyofcryptography.com/preface/#sec.errata).
+
 **Location of bug:**
 * if in the print edition, give page number
 * if in the web edition, give link to chapter and describe location (section #, subsection #, lemma #, etc)
